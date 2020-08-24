@@ -44,6 +44,6 @@ export class CustomExceptionFilter implements CoreExceptionFilter {
       message = exception.stack ? exception.stack.toString() : message
     }
 
-    this.logger.error(`[${ request.method }] ${ request.url } --- ${ message }`)
+    this.logger.error(`${request.method}] ${request.url} --- ${message}`)
   }
 }

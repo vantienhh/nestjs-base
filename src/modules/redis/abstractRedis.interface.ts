@@ -13,5 +13,5 @@ export interface IAbstractRedis {
    * @param {string} key
    * @returns {Promise<string | null>}
    */
-  getValue(key: string): Promise<string | null>
+  get(key: string): Promise<string | null>
 }

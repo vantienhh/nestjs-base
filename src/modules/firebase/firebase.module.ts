@@ -6,5 +6,4 @@ import { AuthenticateMiddleware } from 'src/modules/firebase/authenticate.middle
   providers: [FirebaseService, AuthenticateMiddleware],
   exports: [FirebaseService, AuthenticateMiddleware]
 })
-export class FirebaseModule {
-}
+export class FirebaseModule {}

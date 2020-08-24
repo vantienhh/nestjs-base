@@ -7,15 +7,14 @@ export class RedisService {
 
   constructor() {
     this.client = createClient(RedisService.getConfigRedis())
-
-    this.messageConnect()
+    this.connectMessage()
   }
 
   getClient(): RedisClient {
     return this.client
   }
 
-  private messageConnect(): void {
+  private connectMessage(): void {
     this.client.on('connect', () => {
       console.log('Redis client connected')
     })
