@@ -1,11 +1,12 @@
 import { firestore } from 'firebase-admin'
 import { Id } from 'src/types'
-import { NotFoundException } from '@nestjs/common'
+import { NotFoundException, Injectable } from '@nestjs/common'
 import { FirebaseService } from 'src/modules/firebase/firebase.service'
 import CollectionReference = firestore.CollectionReference
 import DocumentData = firestore.DocumentData
 import WriteResult = firestore.WriteResult
 
+@Injectable()
 export abstract class AbstractRepository<T extends DocumentData = DocumentData> {
   constructor(protected readonly firebaseService: FirebaseService) {}
 
