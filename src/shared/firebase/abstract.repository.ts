@@ -1,7 +1,7 @@
 import { firestore } from 'firebase-admin'
 import { Id } from 'src/types'
 import { NotFoundException, Injectable } from '@nestjs/common'
-import { FirebaseService } from 'src/modules/firebase/firebase.service'
+import { FirebaseService } from 'src/shared/firebase/firebase.service'
 import CollectionReference = firestore.CollectionReference
 import DocumentData = firestore.DocumentData
 import WriteResult = firestore.WriteResult

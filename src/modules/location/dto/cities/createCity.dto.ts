@@ -1,4 +1,4 @@
-import { IsNotEmpty, MinLength, MaxLength } from 'class-validator'
+import { IsNotEmpty, MinLength, MaxLength, IsBoolean } from 'class-validator'
 import { CitySave } from 'src/modules/location/interfaces/city.interface'
 
 export class CreateCityDto implements CitySave {
@@ -11,5 +11,6 @@ export class CreateCityDto implements CitySave {
   name: string
 
   @IsNotEmpty()
+  @IsBoolean()
   active: boolean
 }

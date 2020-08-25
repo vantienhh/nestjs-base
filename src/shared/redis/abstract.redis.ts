@@ -1,7 +1,7 @@
-import { RedisService } from './redis.service'
+import { RedisService } from 'src/shared/redis/redis.service'
 import { RedisClient } from 'redis'
 import { Injectable } from '@nestjs/common'
-import { IAbstractRedis } from './abstractRedis.interface'
+import { IAbstractRedis } from 'src/shared/redis/abstractRedis.interface'
 
 @Injectable()
 export abstract class AbstractRedis implements IAbstractRedis {
