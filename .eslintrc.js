@@ -5,10 +5,13 @@ module.exports = {
     jest: true
   },
   parser: '@typescript-eslint/parser',
-  // parserOptions: {
-  //   project: 'tsconfig.build.json',
-  //   sourceType: 'module',
-  // },
+  parserOptions: {
+    sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    project: [
+      './tsconfig.build.json'
+    ]
+  },
   plugins: ['@typescript-eslint'],
   extends: [
     'plugin:@typescript-eslint/recommended',
@@ -17,6 +20,10 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
+    '@typescript-eslint/no-floating-promises': 'error',
+    '@typescript-eslint/await-thenable': 'error',
+    '@typescript-eslint/return-await': 'error',
+
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

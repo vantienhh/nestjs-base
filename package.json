@@ -1,7 +1,7 @@
 {
   "name": "nestjs-base",
   "version": "0.0.1",
-  "description": "",
+  "description": "an example project use nestjs, firestore",
   "author": "Lê Văn Tiến",
   "private": true,
   "license": "UNLICENSED",
@@ -19,6 +19,16 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@nestjs/bull": "^0.1.2",
@@ -60,7 +70,9 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
     "jest": "26.0.1",
+    "lint-staged": "^10.2.13",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2",
     "ts-jest": "26.1.0",

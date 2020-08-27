@@ -5,8 +5,7 @@ import { City } from 'src/modules/location/interfaces/city.interface'
 
 @Injectable()
 export class CityService {
-  constructor(private readonly cityRepository: CityRepository) {
-  }
+  constructor(private readonly cityRepository: CityRepository) {}
 
   hello(): string {
     return 'hello'

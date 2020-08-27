@@ -6,10 +6,8 @@ export interface CitySave {
   active: boolean
 }
 
-export interface City extends CitySave, Id {
-}
+export interface City extends CitySave, Id {}
 
 export interface CityResponse extends City {
   active_text: string
 }
-

@@ -8,13 +8,8 @@ import { AuthenticateMiddleware } from 'src/modules/firebase/authenticate.middle
 
 @Module({
   imports: [FirebaseModule],
-  controllers: [
-    CityController
-  ],
-  providers: [
-    CityRepository,
-    CityService
-  ]
+  controllers: [CityController],
+  providers: [CityRepository, CityService]
 })
 export class LocationModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

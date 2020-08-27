@@ -9,5 +9,4 @@ export class CityRepository extends AbstractRepository<CitySave> {
   getCollection(): CollectionReference<CitySave> {
     return this.firebaseService.fireStore().collection('cities') as CollectionReference<CitySave>
   }
-
 }
