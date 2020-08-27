@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express'
 import { config } from 'dotenv'
 import * as helmet from 'helmet'
 import * as rateLimit from 'express-rate-limit'
-import { HttpStatus } from '@nestjs/common'
+import { HttpStatus, ValidationPipe } from '@nestjs/common'
 
 config()
 
@@ -31,6 +31,13 @@ async function bootstrap() {
         statusCode: HttpStatus.TOO_MANY_REQUESTS,
         message: 'Too Many Request from this IP, please try again in an hour'
       }
+    })
+  )
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true
     })
   )
 

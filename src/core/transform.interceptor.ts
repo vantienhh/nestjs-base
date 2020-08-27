@@ -7,7 +7,7 @@ import { AbstractResponseDto } from 'src/core/abstractResponse.dto'
 @Injectable()
 export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>> {
   private static getInterceptorData(data: any) {
-    data = data.results ? data.results : data
+    data = data?.results ? data.results : data
 
     if (data instanceof AbstractResponseDto) {
       data = data.transform()
@@ -23,7 +23,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>>
       map(data => {
         const response: IResponse<any> = {
           statusCode: context.switchToHttp().getResponse().statusCode,
-          message: data.message ? data.message : 'Success',
+          message: data?.message ? data.message : 'Success',
           data: TransformInterceptor.getInterceptorData(data)
         }
 

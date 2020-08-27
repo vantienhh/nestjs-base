@@ -6,6 +6,18 @@ import { WinstonLogger } from 'src/shared/logger/winston-logger.service'
 export class CustomExceptionFilter implements CoreExceptionFilter {
   constructor(private logger: WinstonLogger) {}
 
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp()
+    const response = ctx.getResponse<Response>()
+    const request = ctx.getRequest<Request>()
+
+    // Handling error message and logging
+    this.handleMessage(exception, request)
+
+    // IResponse to client
+    CustomExceptionFilter.handlerResponse(response, exception)
+  }
+
   private static handlerResponse(response: Response, exception: HttpException | Error): void {
     let responseBody: any
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR
@@ -21,18 +33,6 @@ export class CustomExceptionFilter implements CoreExceptionFilter {
     }
 
     response.status(statusCode).json(responseBody)
-  }
-
-  catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp()
-    const response = ctx.getResponse<Response>()
-    const request = ctx.getRequest<Request>()
-
-    // Handling error message and logging
-    this.handleMessage(exception, request)
-
-    // IResponse to client
-    CustomExceptionFilter.handlerResponse(response, exception)
   }
 
   private handleMessage(exception: HttpException | Error, request: Request): void {
