@@ -5,6 +5,7 @@ import { config } from 'dotenv'
 import * as helmet from 'helmet'
 import * as rateLimit from 'express-rate-limit'
 import { HttpStatus, ValidationPipe } from '@nestjs/common'
+import { WinstonLogger } from 'src/modules/logger/winston-logger.service'
 
 config()
 
@@ -40,6 +41,14 @@ async function bootstrap() {
       whitelist: true
     })
   )
+
+  const winston = new WinstonLogger()
+
+  process.on('unhandledRejection', (error, listener) => {
+    listener.catch(e => {
+      winston.error(e.stack)
+    })
+  })
 
   await app.listen(process.env.PORT || 3000)
 }
