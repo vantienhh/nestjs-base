@@ -43,11 +43,11 @@ async function bootstrap() {
   )
 
   const winston = new WinstonLogger()
-
   process.on('unhandledRejection', (error, listener) => {
-    listener.catch(e => {
-      winston.error(e.stack)
-    })
+    listener.catch(e => winston.error(e.stack))
+  })
+  process.on('warning', warning => {
+    winston.warn(`${warning.name} -- ${warning.message} \n ${warning.stack}`)
   })
 
   await app.listen(process.env.PORT || 3000)

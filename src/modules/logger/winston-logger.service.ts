@@ -27,11 +27,13 @@ export class WinstonLogger extends Logger {
         datePattern: 'YYYY-MM-DD',
         level: 'error',
         format: combine(timestamp(), formatLog)
+      }),
+      new DailyRotateFile({
+        filename: 'src/storage/logs/warn.%DATE%.log',
+        datePattern: 'YYYY-MM-DD',
+        level: 'warn',
+        format: combine(timestamp(), formatLog)
       })
-      // new transports.File({
-      //   filename: 'logs/info.log',
-      //   level: 'info'
-      // })
     ]
   }
 
@@ -42,6 +44,7 @@ export class WinstonLogger extends Logger {
   }
 
   warn(message: string, context?: string): void {
+    this.logger.log('warn', message)
     // TO DO
     super.warn(message, context)
   }
