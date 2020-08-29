@@ -12,7 +12,16 @@ export class WinstonLogger extends Logger {
   constructor() {
     super()
     this.logger = createLogger({
-      transports: WinstonLogger.getTransports()
+      transports: WinstonLogger.getTransports(),
+      levels: {
+        error: 0,
+        warn: 1,
+        info: 2,
+        http: 3,
+        verbose: 4,
+        debug: 5,
+        silly: 6
+      }
     })
   }
 
@@ -25,7 +34,7 @@ export class WinstonLogger extends Logger {
       new DailyRotateFile({
         filename: 'src/storage/logs/nestjs-base.%DATE%.log',
         datePattern: 'YYYY-MM-DD',
-        level: 'info',
+        level: 'silly', // logger all level
         format: combine(timestamp(), formatLog)
       })
     ]
