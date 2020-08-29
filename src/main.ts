@@ -1,16 +1,16 @@
-import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
-import { NestExpressApplication } from '@nestjs/platform-express'
 import { config } from 'dotenv'
 import * as helmet from 'helmet'
+import { AppModule } from './app.module'
+import { NestFactory } from '@nestjs/core'
 import * as rateLimit from 'express-rate-limit'
 import { HttpStatus, ValidationPipe } from '@nestjs/common'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { WinstonLogger } from 'src/modules/logger/winston-logger.service'
 
 config()
 
 async function bootstrap() {
-  // Dùng express transform
+  // Use express transform
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
   // Set security HTTP headers
@@ -43,9 +43,11 @@ async function bootstrap() {
   )
 
   const winston = new WinstonLogger()
-  process.on('unhandledRejection', (error, listener) => {
-    listener.catch(e => winston.error(e.stack))
+  // log when PROMISE is rejected and no error handler is attached to the promise
+  process.on('unhandledRejection', (reason, promise) => {
+    promise.catch(e => winston.error(e.stack))
   })
+  // log when warning
   process.on('warning', warning => {
     winston.warn(`${warning.name} -- ${warning.message} \n ${warning.stack}`)
   })

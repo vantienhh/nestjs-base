@@ -1,8 +1,9 @@
-import { PipeTransform, ArgumentMetadata, BadRequestException, Injectable } from '@nestjs/common'
 import { validate } from 'class-validator'
 import { plainToClass } from 'class-transformer'
-import { ValidationError } from 'class-validator/types/validation/ValidationError'
+import { Type } from '@nestjs/common/interfaces/type.interface'
 import { ValidationException } from 'src/exceptions/validation.exception'
+import { ValidationError } from 'class-validator/types/validation/ValidationError'
+import { PipeTransform, ArgumentMetadata, BadRequestException, Injectable } from '@nestjs/common'
 
 @Injectable()
 export class CustomValidationPipe implements PipeTransform {
@@ -21,21 +22,25 @@ export class CustomValidationPipe implements PipeTransform {
     return value
   }
 
-  private buildError(errors: ValidationError[]) {
-    const result: { [key: string]: any } = {}
-    errors.forEach(el => {
-      const prop = el.property
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      Object.entries(el.constraints).forEach(constraint => {
-        result[prop] = `${constraint[1]}`
-      })
+  private buildError(errors: ValidationError[], keyErrorParent?: string) {
+    let result: { [key: string]: any } = {}
+    errors.forEach((child: ValidationError) => {
+      const keyError = keyErrorParent ? `${keyErrorParent}.${child.property}` : child.property
+
+      if (child.constraints) {
+        Object.entries(child.constraints).forEach(constraint => {
+          result[keyError] = `${constraint[1]}`
+        })
+      }
+      if (child.children) {
+        result = { ...result, ...this.buildError(child.children, keyError) }
+      }
     })
 
     return result
   }
 
-  private toValidate(metatype: any): boolean {
+  private toValidate(metatype: Type<any>): boolean {
     const types = [String, Boolean, Number, Array, Object]
     return !types.find(type => metatype === type)
   }

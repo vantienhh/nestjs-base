@@ -15,8 +15,9 @@ export class CityController {
 
   @Post()
   async create(@Body() data: CreateCityDto): Promise<CityResponseDto> {
-    const result = await this.cityService.create(data)
+    console.log('data', data)
+    // const result = await this.cityService.create(data)
 
-    return plainToClass(CityResponseDto, result)
+    return plainToClass(CityResponseDto, {})
   }
 }
