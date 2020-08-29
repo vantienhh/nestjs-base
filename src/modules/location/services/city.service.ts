@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCityDto } from 'src/modules/location/dto/cities/createCity.dto'
-import { CityRepository } from 'src/modules/location/Repository/city.repository'
+import { CityRepository } from 'src/modules/location/repositories/city.repository'
 import { City } from 'src/modules/location/interfaces/city.interface'
 
 @Injectable()

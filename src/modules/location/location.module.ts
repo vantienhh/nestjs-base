@@ -2,7 +2,7 @@ import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/c
 import { ExampleMiddleware } from './middleware/example.middleware'
 import { FirebaseModule } from 'src/modules/firebase/firebase.module'
 import { CityController } from 'src/modules/location/controllers/city.controller'
-import { CityRepository } from 'src/modules/location/Repository/city.repository'
+import { CityRepository } from 'src/modules/location/repositories/city.repository'
 import { CityService } from 'src/modules/location/services/city.service'
 import { AuthenticateMiddleware } from 'src/modules/firebase/authenticate.middleware'
 
