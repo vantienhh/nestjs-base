@@ -1,17 +1,17 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { IResponse } from 'src/types'
 import { AbstractResponseDto } from 'src/core/abstractResponse.dto'
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 
 @Injectable()
 export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>> {
   private static getInterceptorData(data: any) {
-    data = data?.results ? data.results : data
+    data = data?.results || data
 
     if (data instanceof AbstractResponseDto) {
       data = data.transform()
-    } else if (Array.isArray(data) && data.length && data[0] instanceof AbstractResponseDto) {
+    } else if (Array.isArray(data) && data?.[0] instanceof AbstractResponseDto) {
       data = [...data].map(subData => subData.transform())
     }
 
@@ -23,7 +23,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>>
       map(data => {
         const response: IResponse<any> = {
           statusCode: context.switchToHttp().getResponse().statusCode,
-          message: data?.message ? data.message : 'Success',
+          message: data?.message || 'Success',
           data: TransformInterceptor.getInterceptorData(data)
         }
 

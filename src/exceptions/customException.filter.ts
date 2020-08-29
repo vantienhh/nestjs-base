@@ -41,7 +41,7 @@ export class CustomExceptionFilter implements CoreExceptionFilter {
     if (exception instanceof HttpException) {
       message = JSON.stringify(exception.getResponse())
     } else {
-      message = exception.stack ? exception.stack.toString() : message
+      message = exception?.stack?.toString() || message
     }
 
     this.logger.error(`${request.method}] ${request.url} --- ${message}`)
