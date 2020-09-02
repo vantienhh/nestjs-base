@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { IResponse } from 'src/types'
-import { AbstractResponseDto } from 'src/core/abstractResponse.dto'
+import { AbstractResponseDto } from 'src/utils/abstract-response.dto'
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 
 @Injectable()

@@ -11,15 +11,21 @@ config()
 
 async function bootstrap() {
   // Use express transform
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    // httpsOptions: {},
+    bodyParser: true,
+    cors: {
+      origin: 'https://example.com',
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      preflightContinue: false,
+      optionsSuccessStatus: HttpStatus.OK
+    }
+  })
 
   // Set security HTTP headers
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   app.use(helmet())
-
-  // CORS
-  app.enableCors()
 
   // rate limit request
   app.use(

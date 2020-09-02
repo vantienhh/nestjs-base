@@ -1,5 +1,5 @@
 import { Expose, Exclude } from 'class-transformer'
-import { AbstractResponseDto } from 'src/core/abstractResponse.dto'
+import { AbstractResponseDto } from 'src/utils/abstract-response.dto'
 import { CityResponse } from 'src/modules/location/interfaces/city.interface'
 
 @Exclude()
