@@ -33,7 +33,6 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
 
   /**
    * TODO chưa làm
-   * @returns {number}
    */
   async paginate() {
     const collectionRef = this.getCollection().limit(5)

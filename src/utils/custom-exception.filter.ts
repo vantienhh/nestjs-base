@@ -1,9 +1,9 @@
-import { ExceptionFilter as CoreExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common'
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common'
 import { Response } from 'express'
 import { WinstonLogger } from 'src/modules/logger/winston-logger.service'
 
 @Catch()
-export class CustomExceptionFilter implements CoreExceptionFilter {
+export class CustomExceptionFilter implements ExceptionFilter {
   constructor(private logger: WinstonLogger) {}
 
   catch(exception: HttpException, host: ArgumentsHost) {
