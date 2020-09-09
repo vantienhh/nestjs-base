@@ -7,10 +7,6 @@ import { IAbstractRedis } from 'src/modules/redis/abstract-redis.interface'
 export abstract class AbstractRedis implements IAbstractRedis {
   protected constructor(protected readonly redisService: RedisService) {}
 
-  protected clientRedis(): RedisClient {
-    return this.redisService.getClient()
-  }
-
   async hasKeyInRedis(key: string): Promise<boolean> {
     return this.clientRedis().get(key)
   }
@@ -22,5 +18,9 @@ export abstract class AbstractRedis implements IAbstractRedis {
         resolve(reply)
       })
     })
+  }
+
+  protected clientRedis(): RedisClient {
+    return this.redisService.getClient()
   }
 }

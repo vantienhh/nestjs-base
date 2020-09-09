@@ -1,7 +1,7 @@
 {
   "name": "nestjs-base",
   "version": "0.0.1",
-  "description": "a base project nodejs use nestjs",
+  "description": "a base project nodejs use nestjs, mongodb",
   "author": "Lê Văn Tiến",
   "private": true,
   "license": "UNLICENSED",
@@ -70,6 +70,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-security": "^1.4.0",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "^10.2.13",

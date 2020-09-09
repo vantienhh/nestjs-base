@@ -9,7 +9,6 @@ import { LocationModule } from './modules/location/location.module'
 import { TransformInterceptor } from 'src/utils/transform.interceptor'
 import { CustomValidationPipe } from 'src/utils/custom-validation.pipe'
 import { MongooseModule } from '@nestjs/mongoose'
-import { ProductModule } from 'src/modules/product/product.module'
 
 @Module({
   imports: [
@@ -25,8 +24,7 @@ import { ProductModule } from 'src/modules/product/product.module'
     MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/test_nodejs'),
     RedisModule,
     LoggerModule,
-    LocationModule,
-    ProductModule
+    LocationModule
   ],
   controllers: [],
   providers: [

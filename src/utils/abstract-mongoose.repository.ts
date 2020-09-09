@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { Document, Model, CreateQuery } from 'mongoose'
+import { IAbstractMongooseRepository } from 'src/types'
 
 @Injectable()
-export class AbstractMongooseRepository<T extends Document> {
+export class AbstractMongooseRepository<T extends Document> implements IAbstractMongooseRepository<T> {
   private readonly model: Model<T>
 
   constructor(model: Model<T>) {
@@ -24,17 +25,18 @@ export class AbstractMongooseRepository<T extends Document> {
     return this.getModel().findById(id).exec()
   }
 
-  /**
-   * find record by id. If not, then fail
-   *
-   * @param {string | number} id
-   * @param {(err: any, res: (T | null)) => void} callback
-   * @returns {Promise<T>}
-   */
   async findOrFail(id: string | number, callback?: (err: any, res: T | null) => void): Promise<T> {
     const result = await this.getModel().findById(id, callback).exec()
     if (result) {
       return result
+    }
+    throw new NotFoundException()
+  }
+
+  async destroy(id: string | number): Promise<boolean> {
+    const result = await this.getModel().findByIdAndDelete(id).exec()
+    if (result) {
+      return true
     }
     throw new NotFoundException()
   }

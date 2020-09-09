@@ -10,19 +10,6 @@ export class RedisService {
     this.connectMessage()
   }
 
-  getClient(): RedisClient {
-    return this.client
-  }
-
-  private connectMessage(): void {
-    this.client.on('connect', () => {
-      console.log('Redis client connected')
-    })
-    this.client.on('error', error => {
-      console.error(error)
-    })
-  }
-
   private static getConfigRedis(): ClientOpts {
     let configRedis: ClientOpts = {
       port: parseInt(process.env.REDIS_PORT || '6379'),
@@ -34,5 +21,18 @@ export class RedisService {
     }
 
     return configRedis
+  }
+
+  getClient(): RedisClient {
+    return this.client
+  }
+
+  private connectMessage(): void {
+    this.client.on('connect', () => {
+      console.log('Redis client connected')
+    })
+    this.client.on('error', error => {
+      console.error(error)
+    })
   }
 }

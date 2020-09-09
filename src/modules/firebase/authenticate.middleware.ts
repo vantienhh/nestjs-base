@@ -5,6 +5,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common'
 @Injectable()
 export class AuthenticateMiddleware implements NestMiddleware {
   use(req: any, res: any, next: () => void): any {
+    console.log('AuthenticateMiddleware')
     // const authorization = req.headers['authorization']
     //
     // if (!authorization || !authorization.includes('Bearer ')) {

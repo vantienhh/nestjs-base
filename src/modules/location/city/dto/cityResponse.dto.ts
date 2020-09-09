@@ -1,10 +1,10 @@
 import { Expose, Exclude } from 'class-transformer'
 import { AbstractResponseDto } from 'src/utils/abstract-response.dto'
-import { CityResponse } from 'src/modules/location/interfaces/city.interface'
+import { CityResponse } from 'src/modules/location/city/city.interface'
 
 @Exclude()
 export class CityResponseDto extends AbstractResponseDto {
-  @Expose() id: string
+  @Expose() _id: string
   @Expose() code: string
   @Expose() name: string
   @Expose() active: boolean
@@ -15,7 +15,7 @@ export class CityResponseDto extends AbstractResponseDto {
 
   transform(): CityResponse {
     return {
-      id: this.id,
+      id: this._id,
       code: this.code,
       name: this.name,
       active: this.active,

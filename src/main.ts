@@ -23,8 +23,6 @@ async function bootstrap() {
     }
   })
 
-  // Set security HTTP headers
-  // @ts-ignore
   app.use(helmet())
 
   // rate limit request
@@ -32,9 +30,8 @@ async function bootstrap() {
     rateLimit({
       max: 20, // limit each IP to 20 requests per windowMs
       windowMs: 60 * 1000, // 1 minutes
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       message: {
+        status: HttpStatus.TOO_MANY_REQUESTS,
         statusCode: HttpStatus.TOO_MANY_REQUESTS,
         message: 'Too Many Request from this IP, please try again in an hour'
       }

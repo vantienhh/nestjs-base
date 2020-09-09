@@ -8,8 +8,8 @@ import {
   IsArray,
   IsObject
 } from 'class-validator'
-import { CitySave } from 'src/modules/location/interfaces/city.interface'
 import { Type } from 'class-transformer'
+import { CitySave } from 'src/modules/location/city/city.interface'
 
 class CreateTesttDto {
   @IsNotEmpty()

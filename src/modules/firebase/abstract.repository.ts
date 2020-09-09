@@ -8,7 +8,7 @@ import WriteResult = firestore.WriteResult
 
 @Injectable()
 export abstract class AbstractRepository<T extends DocumentData = DocumentData> {
-  constructor(protected readonly firebaseService: FirebaseService) {}
+  protected constructor(protected readonly firebaseService: FirebaseService) {}
 
   abstract getCollection(): CollectionReference<T>
 
@@ -20,9 +20,7 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * @returns {Promise<T & Id>}
    */
   async findOrFail(id: string): Promise<T & Id> {
-    const snapshot = await this.getCollection()
-      .doc(id)
-      .get()
+    const snapshot = await this.getCollection().doc(id).get()
 
     if (!snapshot.exists) {
       throw new NotFoundException()
@@ -64,8 +62,6 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * @returns {Promise<WriteResult>}
    */
   delete(id: string): Promise<WriteResult> {
-    return this.getCollection()
-      .doc(id)
-      .delete()
+    return this.getCollection().doc(id).delete()
   }
 }

@@ -29,7 +29,7 @@ export class CustomValidationPipe implements PipeTransform {
 
       if (child.constraints) {
         Object.entries(child.constraints).forEach(constraint => {
-          result[keyError] = `${constraint[1]}`
+          result[keyError.toString()] = `${constraint[1]}`
         })
       }
       if (child.children) {
