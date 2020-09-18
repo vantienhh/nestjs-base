@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { IResponse } from 'src/types'
-import { AbstractResponseDto } from 'src/utils/abstract-response.dto'
+import { AbstractResponseDto } from 'src/utils/dto'
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 
 @Injectable()
-export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>> {
+export class CustomTransformInterceptor<T> implements NestInterceptor<T, IResponse<T>> {
   private static getInterceptorData(data: any) {
     data = data?.results || data
 
@@ -24,7 +24,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, IResponse<T>>
         const response: IResponse<any> = {
           statusCode: context.switchToHttp().getResponse().statusCode,
           message: data?.message || 'Success',
-          data: TransformInterceptor.getInterceptorData(data)
+          data: CustomTransformInterceptor.getInterceptorData(data)
         }
 
         return response

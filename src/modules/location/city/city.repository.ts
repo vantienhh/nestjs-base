@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { AbstractMongooseRepository } from 'src/utils/abstract-mongoose.repository'
+import { AbstractMongooseRepository } from 'src/utils/database'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { City } from 'src/modules/location/city/city.schema'
