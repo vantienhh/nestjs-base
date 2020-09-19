@@ -40,30 +40,33 @@ export class WinstonLogger extends Logger {
     ]
   }
 
-  error(message: string, trace?: string, context?: string): void {
-    this.logger.error(message)
-    // TO DO
+  private static getMessage(message: any) {
+    if (message instanceof Error) {
+      return `${message.name} -- ${message.message} -- ${message.stack}`
+    }
+
+    return message
+  }
+
+  error(message: any, trace?: string, context?: string): void {
+    this.logger.error(WinstonLogger.getMessage(message))
     super.error(message, trace, context)
   }
 
-  warn(message: string, context?: string): void {
-    this.logger.warn(message)
-    // TO DO
+  warn(message: any, context?: string): void {
+    this.logger.warn(WinstonLogger.getMessage(message))
     super.warn(message, context)
   }
 
   log(message: string, context?: string): void {
-    // TO DO
     super.log(message, context)
   }
 
   debug(message: string, context?: string): void {
-    // TO DO
     super.debug(message, context)
   }
 
   verbose(message: string, context?: string): void {
-    // TO DO
     super.verbose(message, context)
   }
 }

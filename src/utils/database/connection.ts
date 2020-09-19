@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose'
+import { Mongoose, connect } from 'mongoose'
 
-export const mongooseConnect = async (): Promise<mongoose.Mongoose> => {
+export const mongooseConnect = async (): Promise<Mongoose> => {
   const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/test_nodejs'
 
-  return mongoose.connect(uri, {
+  return connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   })

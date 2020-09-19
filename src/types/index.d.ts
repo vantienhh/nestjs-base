@@ -10,6 +10,29 @@ export interface IResponse<T> {
   data: T | T[]
 }
 
+export interface RedisOptions {
+  /**
+   * IP address of the Redis server.
+   * @default 127.0.0.1
+   */
+  host?: string
+  /**
+   * Port of the Redis server.
+   * @default 6379
+   */
+  port?: number
+
+  /**
+   * If set, client will send AUTH command with the value of this option when connected.
+   */
+  password?: string
+
+  /**
+   * Database index to use.
+   */
+  db?: number
+}
+
 export interface IAbstractMongooseRepository<T extends Document> {
   getModel(): Model<T>
 

@@ -4,7 +4,7 @@ import { WinstonLogger } from 'src/modules/logger/winston-logger.service'
 
 @Catch()
 export class CustomExceptionFilter implements ExceptionFilter {
-  constructor(private logger: WinstonLogger) {}
+  constructor(private readonly logger: WinstonLogger) {}
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
@@ -16,6 +16,18 @@ export class CustomExceptionFilter implements ExceptionFilter {
 
     // IResponse to client
     CustomExceptionFilter.handlerResponse(response, exception)
+  }
+
+  private handleMessage(exception: HttpException | Error, request: Request): void {
+    let message = 'Internal Server Error'
+
+    if (exception instanceof HttpException) {
+      message = JSON.stringify(exception.getResponse())
+    } else {
+      message = exception?.stack?.toString() || message
+    }
+
+    this.logger.error(`[${request.method}] ${request.url} --- ${message}`)
   }
 
   private static handlerResponse(response: Response, exception: HttpException | Error): void {
@@ -33,17 +45,5 @@ export class CustomExceptionFilter implements ExceptionFilter {
     }
 
     response.status(statusCode).json(responseBody)
-  }
-
-  private handleMessage(exception: HttpException | Error, request: Request): void {
-    let message = 'Internal Server Error'
-
-    if (exception instanceof HttpException) {
-      message = JSON.stringify(exception.getResponse())
-    } else {
-      message = exception?.stack?.toString() || message
-    }
-
-    this.logger.error(`[${request.method}] ${request.url} --- ${message}`)
   }
 }

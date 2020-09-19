@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer'
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete, HttpCode } from '@nestjs/common'
 import { DistrictService } from 'src/modules/location/district/district.service'
 import { DistrictResponseDto, CreateDistrictDto } from 'src/modules/location/district/dto'
 import { MongoIdDto } from 'src/utils/dto'
@@ -17,6 +17,7 @@ export class DistrictController {
   }
 
   @Post()
+  @HttpCode(200)
   async create(@Body() data: CreateDistrictDto): Promise<DistrictResponseDto> {
     const result = await this.districtService.create(data)
     return plainToClass(DistrictResponseDto, result)

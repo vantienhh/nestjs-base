@@ -1,7 +1,7 @@
 import { validate } from 'class-validator'
 import { plainToClass } from 'class-transformer'
 import { Type } from '@nestjs/common/interfaces/type.interface'
-import { ValidationException } from 'src/exceptions/validation.exception'
+import { ValidationException } from 'src/exceptions'
 import { ValidationError } from 'class-validator/types/validation/ValidationError'
 import { PipeTransform, ArgumentMetadata, BadRequestException, Injectable } from '@nestjs/common'
 

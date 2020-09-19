@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer'
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete, HttpCode } from '@nestjs/common'
 import { CityService } from 'src/modules/location/city/city.service'
 import { CityResponseDto, CreateCityDto } from 'src/modules/location/city/dto'
 import { MongoIdDto } from 'src/utils/dto'
@@ -22,6 +22,7 @@ export class CityController {
   }
 
   @Post()
+  @HttpCode(200)
   async create(@Body() data: CreateCityDto): Promise<CityResponseDto> {
     const result = await this.cityService.create(data)
 
