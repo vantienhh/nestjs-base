@@ -1,6 +1,6 @@
-import * as admin from 'firebase-admin'
-import { Injectable } from '@nestjs/common'
-import Firestore = admin.firestore.Firestore
+import * as admin from 'firebase-admin';
+import { Injectable } from '@nestjs/common';
+import Firestore = admin.firestore.Firestore;
 
 @Injectable()
 export class FirebaseService {
@@ -9,11 +9,11 @@ export class FirebaseService {
       admin.initializeApp({
         credential: admin.credential.applicationDefault(),
         databaseURL: process.env.FIREBASE_DATABASEURL
-      })
+      });
     }
   }
 
   fireStore(): Firestore {
-    return admin.firestore()
+    return admin.firestore();
   }
 }

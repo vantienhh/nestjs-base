@@ -1,16 +1,16 @@
-import { firestore } from 'firebase-admin'
-import { Id } from 'src/types'
-import { NotFoundException, Injectable } from '@nestjs/common'
-import { FirebaseService } from 'src/modules/firebase/firebase.service'
-import CollectionReference = firestore.CollectionReference
-import DocumentData = firestore.DocumentData
-import WriteResult = firestore.WriteResult
+import { firestore } from 'firebase-admin';
+import { Id } from 'src/types';
+import { NotFoundException, Injectable } from '@nestjs/common';
+import { FirebaseService } from 'src/modules/firebase/firebase.service';
+import CollectionReference = firestore.CollectionReference;
+import DocumentData = firestore.DocumentData;
+import WriteResult = firestore.WriteResult;
 
 @Injectable()
 export abstract class AbstractRepository<T extends DocumentData = DocumentData> {
   protected constructor(protected readonly firebaseService: FirebaseService) {}
 
-  abstract getCollection(): CollectionReference<T>
+  abstract getCollection(): CollectionReference<T>;
 
   /**
    * Lấy thông tin 1 bản ghi xác định bởi ID
@@ -20,12 +20,12 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * @returns {Promise<T & Id>}
    */
   async findOrFail(id: string): Promise<T & Id> {
-    const snapshot = await this.getCollection().doc(id).get()
+    const snapshot = await this.getCollection().doc(id).get();
 
     if (!snapshot.exists) {
-      throw new NotFoundException()
+      throw new NotFoundException();
     } else {
-      return Object.assign(snapshot.data(), { id: snapshot.id })
+      return Object.assign(snapshot.data(), { id: snapshot.id });
     }
   }
 
@@ -33,8 +33,8 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * TODO chưa làm
    */
   async paginate() {
-    const collectionRef = this.getCollection().limit(5)
-    return collectionRef.get()
+    const collectionRef = this.getCollection().limit(5);
+    return collectionRef.get();
   }
 
   /**
@@ -44,14 +44,14 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * @param {true} notGetData   Có lấy data hay không
    * @returns {Promise<T & Id>}
    */
-  async create(data: T): Promise<T & Id>
-  async create(data: T, notGetData: true): Promise<void>
+  async create(data: T): Promise<T & Id>;
+  async create(data: T, notGetData: true): Promise<void>;
   async create(data: T, notGetData?: true): Promise<(T & Id) | void> {
-    const cityRef = this.getCollection().doc()
-    await cityRef.set(data)
+    const cityRef = this.getCollection().doc();
+    await cityRef.set(data);
 
     if (!notGetData) {
-      return cityRef.get().then(city => city.data() && Object.assign(city.data(), { id: city.id }))
+      return cityRef.get().then(city => city.data() && Object.assign(city.data(), { id: city.id }));
     }
   }
 
@@ -62,6 +62,6 @@ export abstract class AbstractRepository<T extends DocumentData = DocumentData> 
    * @returns {Promise<WriteResult>}
    */
   delete(id: string): Promise<WriteResult> {
-    return this.getCollection().doc(id).delete()
+    return this.getCollection().doc(id).delete();
   }
 }

@@ -1,2 +1,2 @@
-export * from './abstract-mongoose.repository'
-export * from './connection'
+export * from './abstract-mongoose.repository';
+export * from './connection';

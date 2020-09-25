@@ -4,10 +4,9 @@ import {
   ValidationArguments,
   ValidatorConstraintInterface,
   ValidatorConstraint
-} from 'class-validator'
-import { Types, Collection } from 'mongoose'
-import { connections } from 'mongoose'
-import { mongooseConnect } from 'src/utils/database'
+} from 'class-validator';
+import { Types, Collection, connections } from 'mongoose';
+import { mongooseConnect } from 'src/utils/database';
 
 /**
  * The field under validation must exist on a given database table
@@ -26,35 +25,35 @@ export function IsExists(table: string, column: string, validationOptions?: Vali
       constraints: [table, column],
       options: validationOptions,
       validator: ValidateExists
-    })
-  }
+    });
+  };
 }
 
 @ValidatorConstraint()
 class ValidateExists implements ValidatorConstraintInterface {
   async validate(value: any, args: ValidationArguments) {
-    const [table, column] = args.constraints
-    let collection: Collection | null = null
+    const [table, column] = args.constraints;
+    let collection: Collection | null = null;
 
-    if (column === '_id') value = Types.ObjectId(value)
+    if (column === '_id') value = Types.ObjectId(value);
 
     for (const connection of connections) {
-      const subConnection = connection.collection(table)
+      const subConnection = connection.collection(table);
       // @ts-ignore
       if (subConnection.collection) {
-        collection = subConnection
-        break
+        collection = subConnection;
+        break;
       }
     }
 
     if (!collection) {
-      const db = await mongooseConnect()
-      collection = db.connection.collection(table)
+      const db = await mongooseConnect();
+      collection = db.connection.collection(table);
     }
-    return !!(await collection.findOne({ [column]: value }))
+    return !!(await collection.findOne({ [column]: value }));
   }
 
   defaultMessage(): string {
-    return 'value not exists in database'
+    return 'value not exists in database';
   }
 }

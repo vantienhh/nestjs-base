@@ -1,2 +1,2 @@
-export * from './abstract-response.dto'
-export * from './mongoId.dto'
+export * from './abstract-response.dto';
+export * from './mongoId.dto';

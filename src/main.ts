@@ -1,13 +1,13 @@
-import { config } from 'dotenv'
-import * as helmet from 'helmet'
-import { AppModule } from './app.module'
-import { NestFactory } from '@nestjs/core'
-import * as rateLimit from 'express-rate-limit'
-import { HttpStatus, ValidationPipe } from '@nestjs/common'
-import { NestExpressApplication } from '@nestjs/platform-express'
-import { WinstonLogger } from 'src/modules/logger/winston-logger.service'
+import { config } from 'dotenv';
+import * as helmet from 'helmet';
+import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core';
+import * as rateLimit from 'express-rate-limit';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { WinstonLogger } from 'src/modules/logger/winston-logger.service';
 
-config()
+config();
 
 async function bootstrap() {
   // Use express transform
@@ -21,9 +21,9 @@ async function bootstrap() {
       preflightContinue: false,
       optionsSuccessStatus: HttpStatus.OK
     }
-  })
+  });
 
-  app.use(helmet())
+  app.use(helmet());
 
   // rate limit request
   app.use(
@@ -36,26 +36,26 @@ async function bootstrap() {
         message: 'Too Many Request from this IP, please try again in an hour'
       }
     })
-  )
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       whitelist: true
     })
-  )
+  );
 
-  const winston = new WinstonLogger()
+  const winston = new WinstonLogger();
   // log when PROMISE is rejected and no error handler is attached to the promise
   process.on('unhandledRejection', (reason, promise) => {
-    promise.catch(e => winston.error(e.stack))
-  })
+    promise.catch(e => winston.error(e.stack));
+  });
   // log when warning
   process.on('warning', warning => {
-    winston.warn(`${warning.name} -- ${warning.message} \n ${warning.stack}`)
-  })
+    winston.warn(`${warning.name} -- ${warning.message} \n ${warning.stack}`);
+  });
 
-  await app.listen(process.env.PORT || 3000)
+  await app.listen(process.env.PORT || 3000);
 }
 
-void bootstrap()
+void bootstrap();

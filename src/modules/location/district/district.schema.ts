@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
-import { IDistrict } from 'src/modules/location/district/district.interface'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { IDistrict } from 'src/modules/location/district/district.interface';
 
 @Schema()
 export class District extends Document implements IDistrict {
@@ -10,7 +10,7 @@ export class District extends Document implements IDistrict {
     type: String,
     minlength: [2, 'Mã phải có ít nhất 2 ký tự']
   })
-  code: string
+  code: string;
 
   @Prop({
     required: [true, 'Tên quận/huyện là bắt buộc'],
@@ -18,20 +18,20 @@ export class District extends Document implements IDistrict {
     type: String,
     minlength: [2, 'Tên quận/huyện phải có ít nhất 2 ký tự']
   })
-  name: string
+  name: string;
 
   @Prop({
     required: [true, 'Id thành phố là bắt buộc'],
     trim: true,
     type: String
   })
-  city_id: string
+  city_id: string;
 
   @Prop({
     type: Boolean,
     default: true
   })
-  active: boolean
+  active: boolean;
 }
 
-export const DistrictSchema = SchemaFactory.createForClass(District)
+export const DistrictSchema = SchemaFactory.createForClass(District);

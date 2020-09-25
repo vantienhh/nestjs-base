@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
-import { ICity } from 'src/modules/location/city/city.interface'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { ICity } from 'src/modules/location/city/city.interface';
 
 @Schema()
 export class City extends Document implements ICity {
@@ -10,7 +10,7 @@ export class City extends Document implements ICity {
     type: String,
     minlength: [2, 'Mã phải có ít nhất 2 ký tự']
   })
-  code: string
+  code: string;
 
   @Prop({
     required: [true, 'Tên thành phố là bắt buộc'],
@@ -18,13 +18,13 @@ export class City extends Document implements ICity {
     type: String,
     minlength: [2, 'Tên thành phố phải có ít nhất 2 ký tự']
   })
-  name: string
+  name: string;
 
   @Prop({
     type: Boolean,
     default: true
   })
-  active: boolean
+  active: boolean;
 }
 
-export const CitySchema = SchemaFactory.createForClass(City)
+export const CitySchema = SchemaFactory.createForClass(City);

@@ -1,1 +1,1 @@
-export * from './redisConfig'
+export * from './redisConfig';

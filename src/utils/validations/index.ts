@@ -1,1 +1,1 @@
-export * from './isExists'
+export * from './isExists';

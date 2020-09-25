@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from '@nestjs/common'
-import { IResponse } from 'src/types'
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { IResponse } from 'src/types';
 
 export class ValidationException extends HttpException {
   constructor(errors: any) {
@@ -9,7 +9,7 @@ export class ValidationException extends HttpException {
       data: {
         errors: errors
       }
-    }
-    super(response, HttpStatus.UNPROCESSABLE_ENTITY)
+    };
+    super(response, HttpStatus.UNPROCESSABLE_ENTITY);
   }
 }
