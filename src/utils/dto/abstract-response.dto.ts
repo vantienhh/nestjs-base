@@ -1,3 +1,3 @@
 export abstract class AbstractResponseDto {
-  abstract transform(): any
+  abstract transform(): any;
 }

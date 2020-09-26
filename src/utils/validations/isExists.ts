@@ -16,7 +16,7 @@ import { mongooseConnect } from 'src/utils/database';
  * @param {ValidationOptions} validationOptions
  * @returns {(object: Record<any, any>, propertyName: string) => void}
  */
-export function IsExists(table: string, column: string, validationOptions?: ValidationOptions) {
+export function isExists(table: string, column: string, validationOptions?: ValidationOptions) {
   return function (object: Record<any, any>, propertyName: string) {
     registerDecorator({
       name: 'isExists',

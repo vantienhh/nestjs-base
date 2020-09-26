@@ -5,7 +5,7 @@ export interface IAbstractRedis {
    * @param {string} key
    * @returns {boolean}
    */
-  hasKeyInRedis(key: string): Promise<boolean>
+  hasKeyInRedis(key: string): Promise<boolean>;
 
   /**
    * get value of key in redis
@@ -13,5 +13,5 @@ export interface IAbstractRedis {
    * @param {string} key
    * @returns {Promise<string | null>}
    */
-  get(key: string): Promise<string | null>
+  get(key: string): Promise<string | null>;
 }

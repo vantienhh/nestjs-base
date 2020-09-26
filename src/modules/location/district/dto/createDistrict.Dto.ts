@@ -1,6 +1,6 @@
 import { DistrictSave } from 'src/modules/location/district/district.interface';
 import { MinLength, MaxLength, IsBoolean, IsString, IsNotEmpty, IsMongoId } from 'class-validator';
-import { IsExists } from 'src/utils/validations';
+import { isExists } from 'src/utils/validations';
 
 export class CreateDistrictDto implements DistrictSave {
   @IsNotEmpty()
@@ -15,7 +15,7 @@ export class CreateDistrictDto implements DistrictSave {
 
   @IsNotEmpty()
   @IsMongoId()
-  @IsExists('cities', '_id')
+  @isExists('cities', '_id')
   city_id: string;
 
   @IsNotEmpty()
