@@ -4,14 +4,15 @@ import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import * as rateLimit from 'express-rate-limit';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express';
+import { NestExpressApplication, ExpressAdapter } from '@nestjs/platform-express';
 import { WinstonLogger } from 'src/modules/logger/winston-logger.service';
+import { Express } from 'express';
 
 config();
 
-async function bootstrap() {
+export async function bootstrap(expressInstance: Express) {
   // Use express transform
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(expressInstance), {
     // httpsOptions: {},
     bodyParser: true,
     cors: {
@@ -55,7 +56,6 @@ async function bootstrap() {
     winston.warn(`${warning.name} -- ${warning.message} \n ${warning.stack}`);
   });
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(3008);
+  await app.init();
 }
-
-void bootstrap();

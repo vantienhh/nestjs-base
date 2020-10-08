@@ -1,5 +1,3 @@
-import { Model, Document, CreateQuery } from 'mongoose';
-
 export type Id = {
   id: string;
 };
@@ -34,18 +32,6 @@ export interface RedisOptions {
 }
 
 export interface IAbstractMongooseRepository<T extends Document> {
-  getModel(): Model<T>;
-
-  /**
-   * saving one or more documents to the database
-   * @param {CreateQuery<T>} data
-   *
-   * @returns {Promise<T>}
-   */
-  create(data: CreateQuery<T>): Promise<T>;
-  create(data: CreateQuery<T>[]): Promise<T[]>;
-  create(data: CreateQuery<T> | CreateQuery<T>[]): Promise<T | T[]>;
-
   /**
    * find a single document by its id field
    * @param {string | number} id

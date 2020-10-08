@@ -1,6 +1,3 @@
-import { Document } from 'mongoose';
-import { IAbstractMongooseRepository } from 'src/types';
-
 export interface CitySave {
   code: string;
   name: string;
@@ -17,5 +14,3 @@ export interface ICity extends Document {
   name: string;
   active: boolean;
 }
-
-export type ICityRepository = IAbstractMongooseRepository<ICity>;
