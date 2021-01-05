@@ -1,8 +1,18 @@
 import { plainToClass } from 'class-transformer';
-import { Controller, Get, Post, Body, Param, Delete, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  HttpCode,
+  UseInterceptors
+} from '@nestjs/common';
 import { CityService } from 'src/modules/location/city/city.service';
 import { CityResponseDto, CreateCityDto } from 'src/modules/location/city/dto';
 import { MongoIdDto } from 'src/utils/dto';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('cities')
 export class CityController {
@@ -19,6 +29,12 @@ export class CityController {
     const result = await this.cityService.show(id);
 
     return plainToClass(CityResponseDto, result);
+  }
+
+  @Post('/test')
+  @UseInterceptors(AnyFilesInterceptor())
+  async create1(@Body() data: any) {
+    console.log(data.test);
   }
 
   @Post()

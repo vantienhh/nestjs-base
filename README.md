@@ -6,27 +6,27 @@
 
 ## Install
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # lint
-$ npm run lint
+$ yarn lint
 
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # watch debug
-$ npm run start:debug
+$ yarn start:debug
 
 # build
-$ npm run build
+$ yarn build
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```

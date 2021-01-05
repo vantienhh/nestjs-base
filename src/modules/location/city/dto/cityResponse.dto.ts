@@ -5,8 +5,11 @@ import { CityResponse } from 'src/modules/location/city/city.interface';
 @Exclude()
 export class CityResponseDto extends AbstractResponseDto {
   @Expose() _id: string;
+
   @Expose() code: string;
+
   @Expose() name: string;
+
   @Expose() active: boolean;
 
   getActiveText(): string {
